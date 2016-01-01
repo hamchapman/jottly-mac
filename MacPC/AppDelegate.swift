@@ -7,15 +7,164 @@
 //
 
 import Cocoa
+import CoreData
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
+    
+    let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2)
+    let clicksMenuItem: NSMenuItem = NSMenuItem()
+    let pressesMenuItem: NSMenuItem = NSMenuItem()
+    let menu: NSMenu = NSMenu()
+    
     @IBOutlet weak var window: NSWindow!
 
-
     func applicationDidFinishLaunching(aNotification: NSNotification) {
-        // Insert code here to initialize your application
+        if let button = statusItem.button {
+            button.image = NSImage(named: "StatusBarButtonImage")
+        }
+        
+        setMenuItems()
+        setupMenu()
+        setupLogging()
+    }
+    
+    func setMenuItems() {
+        var clickTotal = 0
+        var pressTotal = 0
+        if let clicksToday = fetchTodaysTotalIfPresent("mouse") {
+            clickTotal = clicksToday
+        }
+        if let pressesToday = fetchTodaysTotalIfPresent("key") {
+            pressTotal = pressesToday
+        }
+        clicksMenuItem.title = "Clicks today: \(clickTotal)"
+        pressesMenuItem.title = "Key presses today: \(pressTotal)"
+    }
+    
+    func resync(sender: AnyObject) {
+        print("About to resync")
+    }
+    
+    func setupLogging() {
+        if acquirePrivileges() {
+            print("Accessibility Enabled")
+            setupMasks()
+        }
+        else {
+            print("Accessibility Disabled")
+        }
+    }
+    
+    func setupMasks() {
+        NSEvent.addGlobalMonitorForEventsMatchingMask(.LeftMouseDownMask, handler: { event in
+            print("Left mouse click")
+            self.incrementOrCreate("mouse")
+        })
+        
+        NSEvent.addGlobalMonitorForEventsMatchingMask(.RightMouseDownMask, handler: { event in
+            print("Right mouse click")
+            self.incrementOrCreate("mouse")
+        })
+        
+        NSEvent.addGlobalMonitorForEventsMatchingMask(.KeyDownMask, handler: { event in
+            print("Key press char:\(event.characters) key code: \(event.keyCode)")
+            self.incrementOrCreate("key")
+        })
+    }
+    
+    func setupMenu() {
+        menu.addItem(clicksMenuItem)
+        menu.addItem(pressesMenuItem)
+        menu.addItem(NSMenuItem(title: "Resync", action: Selector("resync:"), keyEquivalent: "R"))
+        menu.addItem(NSMenuItem.separatorItem())
+        menu.addItem(NSMenuItem(title: "Quit", action: Selector("terminate:"), keyEquivalent: "q"))
+        statusItem.menu = menu
+    }
+    
+    func todaysDateAsString() -> String {
+        let todaysDate = NSDate()
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.stringFromDate(todaysDate)
+    }
+    
+    func fetchTodaysObjectIfPresent(type: String) -> NSManagedObject? {
+        let managedContext = self.managedObjectContext
+        let dateString = todaysDateAsString()
+        
+        let fetchRequest = NSFetchRequest(entityName: "DayTotal")
+        fetchRequest.predicate = NSPredicate(format: "createdAt = %@ AND type = %@", dateString, type)
+        
+        // maybe store todays managed object id in variable
+        
+        do {
+            if let results = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject] {
+                if results.count == 1 {
+                    return results[0]
+                }
+            }
+        } catch {
+            // handle error properly and add to counter and then change icon if too many errors, or post notification
+            print("Error")
+        }
+        return nil
+    }
+    
+    func fetchTodaysTotalIfPresent(type: String) -> Int? {
+        if let todaysObject = fetchTodaysObjectIfPresent(type) {
+            return todaysObject.valueForKey("total") as? Int
+        }
+        return nil
+    }
+    
+    func incrementOrCreate(type: String) {
+        let managedContext = self.managedObjectContext
+        let dateString = todaysDateAsString()
+        var newTotal: Int
+        
+        if let todaysObject = fetchTodaysObjectIfPresent(type) {
+            let currentTotal = todaysObject.valueForKey("total") as! Int
+            newTotal = currentTotal + 1
+            todaysObject.setValue(newTotal, forKey: "total")
+        } else {
+            let entity =  NSEntityDescription.entityForName("DayTotal", inManagedObjectContext: managedContext)
+            let dayTotal = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+            dayTotal.setValue(dateString, forKey: "createdAt")
+            dayTotal.setValue(type, forKey: "type")
+            newTotal = 1
+        }
+        
+        try! managedContext.save()
+        updateMenuTitle(type, value: newTotal)
+    }
+    
+    func updateMenuTitle(type: String, value: Int) {
+        if type == "key" {
+            pressesMenuItem.title = "Key presses today: \(value)"
+        } else if type == "mouse" {
+            clicksMenuItem.title = "Clicks today: \(value)"
+        }
+    }
+    
+    func acquirePrivileges() -> Bool {
+        let trusted = kAXTrustedCheckOptionPrompt.takeUnretainedValue()
+        let privOptions = [trusted as NSString: true]
+        var accessEnabled = AXIsProcessTrustedWithOptions(privOptions)
+        
+        if !accessEnabled {
+            let alert = NSAlert()
+            alert.messageText = "Enable MacPC"
+            alert.informativeText = "Once you have enabled MacPC in System Preferences, click OK."
+            alert.beginSheetModalForWindow(self.window, completionHandler: { response in
+                if AXIsProcessTrustedWithOptions(privOptions) {
+                    accessEnabled = true
+                } else {
+                    NSApp.terminate(self)
+                }
+            })
+        }
+        return accessEnabled
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
