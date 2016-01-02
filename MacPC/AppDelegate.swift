@@ -11,8 +11,8 @@ import CoreData
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
-    let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-2)
+
+    let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSVariableStatusItemLength)
     let clicksMenuItem: NSMenuItem = NSMenuItem()
     let pressesMenuItem: NSMenuItem = NSMenuItem()
     let menu: NSMenu = NSMenu()
@@ -70,6 +70,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSEvent.addGlobalMonitorForEventsMatchingMask(.KeyDownMask, handler: { event in
             print("Key press char:\(event.characters) key code: \(event.keyCode)")
             self.incrementOrCreate("key")
+        })
+        
+        NSEvent.addGlobalMonitorForEventsMatchingMask(.FlagsChangedMask, handler: { event in
+            if event.modifierFlags.rawValue == 256 {
+                print("Modifier key up")
+                self.incrementOrCreate("key")
+            }
         })
     }
     
