@@ -7,19 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		332AE5A71EEDE52300FBB641 /* CFArray+Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332AE5A61EEDE52300FBB641 /* CFArray+Sequence.swift */; };
 		33446F2D1C3477E4006B4A79 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33446F2C1C3477E4006B4A79 /* AppDelegate.swift */; };
-		33446F301C3477E4006B4A79 /* MacPC.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 33446F2E1C3477E4006B4A79 /* MacPC.xcdatamodeld */; };
+		33446F301C3477E4006B4A79 /* Jottly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 33446F2E1C3477E4006B4A79 /* Jottly.xcdatamodeld */; };
 		33446F321C3477E4006B4A79 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33446F311C3477E4006B4A79 /* Assets.xcassets */; };
 		33446F351C3477E4006B4A79 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33446F331C3477E4006B4A79 /* MainMenu.xib */; };
+		33C69F2A1D27181300ABB47A /* ForegroundApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C69F291D27181300ABB47A /* ForegroundApplication.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		33446F291C3477E4006B4A79 /* MacPC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacPC.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		332AE5A61EEDE52300FBB641 /* CFArray+Sequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CFArray+Sequence.swift"; sourceTree = "<group>"; };
+		33446F291C3477E4006B4A79 /* Jottly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jottly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33446F2C1C3477E4006B4A79 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		33446F2F1C3477E4006B4A79 /* MacPC.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MacPC.xcdatamodel; sourceTree = "<group>"; };
+		33446F2F1C3477E4006B4A79 /* Jottly.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Jottly.xcdatamodel; sourceTree = "<group>"; };
 		33446F311C3477E4006B4A79 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		33446F341C3477E4006B4A79 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		33446F361C3477E4006B4A79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		33C69F291D27181300ABB47A /* ForegroundApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForegroundApplication.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,7 +40,7 @@
 		33446F201C3477E4006B4A79 = {
 			isa = PBXGroup;
 			children = (
-				33446F2B1C3477E4006B4A79 /* MacPC */,
+				33446F2B1C3477E4006B4A79 /* Jottly */,
 				33446F2A1C3477E4006B4A79 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -44,29 +48,31 @@
 		33446F2A1C3477E4006B4A79 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				33446F291C3477E4006B4A79 /* MacPC.app */,
+				33446F291C3477E4006B4A79 /* Jottly.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		33446F2B1C3477E4006B4A79 /* MacPC */ = {
+		33446F2B1C3477E4006B4A79 /* Jottly */ = {
 			isa = PBXGroup;
 			children = (
 				33446F2C1C3477E4006B4A79 /* AppDelegate.swift */,
+				33C69F291D27181300ABB47A /* ForegroundApplication.swift */,
+				332AE5A61EEDE52300FBB641 /* CFArray+Sequence.swift */,
 				33446F311C3477E4006B4A79 /* Assets.xcassets */,
 				33446F331C3477E4006B4A79 /* MainMenu.xib */,
 				33446F361C3477E4006B4A79 /* Info.plist */,
-				33446F2E1C3477E4006B4A79 /* MacPC.xcdatamodeld */,
+				33446F2E1C3477E4006B4A79 /* Jottly.xcdatamodeld */,
 			);
-			path = MacPC;
+			path = Jottly;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		33446F281C3477E4006B4A79 /* MacPC */ = {
+		33446F281C3477E4006B4A79 /* Jottly */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 33446F391C3477E4006B4A79 /* Build configuration list for PBXNativeTarget "MacPC" */;
+			buildConfigurationList = 33446F391C3477E4006B4A79 /* Build configuration list for PBXNativeTarget "Jottly" */;
 			buildPhases = (
 				33446F251C3477E4006B4A79 /* Sources */,
 				33446F261C3477E4006B4A79 /* Frameworks */,
@@ -76,9 +82,9 @@
 			);
 			dependencies = (
 			);
-			name = MacPC;
-			productName = MacPC;
-			productReference = 33446F291C3477E4006B4A79 /* MacPC.app */;
+			name = Jottly;
+			productName = Jottly;
+			productReference = 33446F291C3477E4006B4A79 /* Jottly.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -88,15 +94,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Hamilton Chapman";
 				TargetAttributes = {
 					33446F281C3477E4006B4A79 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0830;
 					};
 				};
 			};
-			buildConfigurationList = 33446F241C3477E4006B4A79 /* Build configuration list for PBXProject "MacPC" */;
+			buildConfigurationList = 33446F241C3477E4006B4A79 /* Build configuration list for PBXProject "Jottly" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -109,7 +116,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				33446F281C3477E4006B4A79 /* MacPC */,
+				33446F281C3477E4006B4A79 /* Jottly */,
 			);
 		};
 /* End PBXProject section */
@@ -131,8 +138,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33446F301C3477E4006B4A79 /* MacPC.xcdatamodeld in Sources */,
+				33446F301C3477E4006B4A79 /* Jottly.xcdatamodeld in Sources */,
+				332AE5A71EEDE52300FBB641 /* CFArray+Sequence.swift in Sources */,
 				33446F2D1C3477E4006B4A79 /* AppDelegate.swift in Sources */,
+				33C69F2A1D27181300ABB47A /* ForegroundApplication.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,8 +172,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -207,8 +218,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -227,6 +240,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
@@ -235,10 +249,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = MacPC/Info.plist;
+				INFOPLIST_FILE = Jottly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = gg.hc.MacPC;
+				PRODUCT_BUNDLE_IDENTIFIER = gg.hc.Jottly;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -247,17 +262,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = MacPC/Info.plist;
+				INFOPLIST_FILE = Jottly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = gg.hc.MacPC;
+				PRODUCT_BUNDLE_IDENTIFIER = gg.hc.Jottly;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		33446F241C3477E4006B4A79 /* Build configuration list for PBXProject "MacPC" */ = {
+		33446F241C3477E4006B4A79 /* Build configuration list for PBXProject "Jottly" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				33446F371C3477E4006B4A79 /* Debug */,
@@ -266,7 +282,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		33446F391C3477E4006B4A79 /* Build configuration list for PBXNativeTarget "MacPC" */ = {
+		33446F391C3477E4006B4A79 /* Build configuration list for PBXNativeTarget "Jottly" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				33446F3A1C3477E4006B4A79 /* Debug */,
@@ -278,13 +294,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		33446F2E1C3477E4006B4A79 /* MacPC.xcdatamodeld */ = {
+		33446F2E1C3477E4006B4A79 /* Jottly.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				33446F2F1C3477E4006B4A79 /* MacPC.xcdatamodel */,
+				33446F2F1C3477E4006B4A79 /* Jottly.xcdatamodel */,
 			);
-			currentVersion = 33446F2F1C3477E4006B4A79 /* MacPC.xcdatamodel */;
-			path = MacPC.xcdatamodeld;
+			currentVersion = 33446F2F1C3477E4006B4A79 /* Jottly.xcdatamodel */;
+			path = Jottly.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
