@@ -4,7 +4,7 @@ import CoreData
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
+    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     let clicksMenuItem: NSMenuItem = NSMenuItem()
     let pressesMenuItem: NSMenuItem = NSMenuItem()
     let menu: NSMenu = NSMenu()
@@ -13,7 +13,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         if let button = statusItem.button {
-            button.image = NSImage(named: "StatusBarButtonImage")
+            button.image = NSImage(named: NSImage.Name(rawValue: "StatusBarButtonImage"))
         }
         
         setMenuItems()
@@ -35,7 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         pressesMenuItem.title = "Key presses today: \(pressTotal)"
     }
     
-    func resync(_ sender: AnyObject) {
+    @objc func resync(_ sender: AnyObject) {
         print("About to resync")
     }
     
@@ -50,17 +50,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func setupMasks() {
-        NSEvent.addGlobalMonitorForEvents(matching: .leftMouseDown, handler: { event in
+        NSEvent.addGlobalMonitorForEvents(matching: NSEvent.EventTypeMask.leftMouseDown, handler: { event in
             print("Left mouse click")
             self.incrementOrCreate("mouse")
         })
         
-        NSEvent.addGlobalMonitorForEvents(matching: .rightMouseDown, handler: { event in
+        NSEvent.addGlobalMonitorForEvents(matching: NSEvent.EventTypeMask.rightMouseDown, handler: { event in
             print("Right mouse click")
             self.incrementOrCreate("mouse")
         })
         
-        NSEvent.addGlobalMonitorForEvents(matching: .keyDown, handler: { event in
+        NSEvent.addGlobalMonitorForEvents(matching: NSEvent.EventTypeMask.keyDown, handler: { event in
             print("Key press char:\(event.characters) key code: \(event.keyCode)")
             guard ![123, 124].contains(event.keyCode) else {
                 // Left or right arrow presssed in conjunction with a modifier key
@@ -70,7 +70,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.incrementOrCreate("key")
         })
         
-        NSEvent.addGlobalMonitorForEvents(matching: .flagsChanged, handler: { event in
+        NSEvent.addGlobalMonitorForEvents(matching: NSEvent.EventTypeMask.flagsChanged, handler: { event in
             if event.modifierFlags.rawValue == 256 {
                 print("Modifier key up")
                 self.incrementOrCreate("key")
@@ -238,7 +238,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 dict[NSUnderlyingErrorKey] = failError
             }
             let error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
-            NSApplication.shared().presentError(error)
+            NSApplication.shared.presentError(error)
             abort()
         } else {
             return coordinator!
@@ -265,7 +265,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 try managedObjectContext.save()
             } catch {
                 let nserror = error as NSError
-                NSApplication.shared().presentError(nserror)
+                NSApplication.shared.presentError(nserror)
             }
         }
     }
@@ -275,7 +275,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return managedObjectContext.undoManager
     }
 
-    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplicationTerminateReply {
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         // Save changes in the application's managed object context before the application terminates.
         
         if !managedObjectContext.commitEditing() {
@@ -308,7 +308,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             alert.addButton(withTitle: cancelButton)
             
             let answer = alert.runModal()
-            if answer == NSAlertFirstButtonReturn {
+            if answer == NSApplication.ModalResponse.alertFirstButtonReturn {
                 return .terminateCancel
             }
         }

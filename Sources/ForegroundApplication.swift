@@ -2,7 +2,7 @@ import Cocoa
 
 class StatusMenuController: NSObject {
 
-    let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
+    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     let BROWSERS = ["Firefox", "Safari", "Google Chrome", "Google Chrome Canary"]
     let BASE_ENDPOINT = "https://proddy.herokuapp.com"
     let defaults = UserDefaults.standard
@@ -11,32 +11,31 @@ class StatusMenuController: NSObject {
     @IBOutlet weak var statusMenu: NSMenu!
     @IBOutlet weak var proddableAppList: NSMenuItem!
     @IBOutlet weak var proddableAppListMenu: NSMenu!
-    @IBOutlet weak var currentLeader: NSMenuItem!
-    @IBOutlet weak var yourRank: NSMenuItem!
 
     @IBAction func quitClicked(_ sender: AnyObject) {
-        NSApplication.shared().terminate(self)
+        NSApplication.shared.terminate(self)
     }
 
     @IBAction func resetUsername(_ sender: AnyObject) {
         defaults.set(nil, forKey: "user_id")
     }
 
-
     override func awakeFromNib() {
         if let button = statusItem.button {
-            button.image = NSImage(named: "proddy-logo-black32")
+            button.image = NSImage(named: NSImage.Name(rawValue: "proddy-logo-black32"))
         }
 
         statusItem.menu = statusMenu
 
         checkRunningApplication()
+
+        
         Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(StatusMenuController.checkRunningApplication), userInfo: nil, repeats: true)
 
         //        initialiseExtremeMode()
     }
 
-    func activateExtremeMode(_ item: NSMenuItem) {
+    @objc func activateExtremeMode(_ item: NSMenuItem) {
         bringAppToForeground(item.title)
     }
 
@@ -57,7 +56,7 @@ class StatusMenuController: NSObject {
                             print(windowNum)
                             let special = NSApp.window(withWindowNumber: windowNum)
                             print(special)
-                            special!.level = Int(CGWindowLevelForKey(.maximumWindow))
+                            special!.level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.maximumWindow)))
                             //                            special!.level = Int(CGWindowLevelForKey(.FloatingWindowLevelKey))
                         }
                     }
@@ -67,19 +66,19 @@ class StatusMenuController: NSObject {
     }
 
     func bringAppToForeground(_ appName: String) {
-        for runningApp in NSWorkspace.shared().runningApplications {
+        for runningApp in NSWorkspace.shared.runningApplications {
             if let name = runningApp.localizedName, name == appName {
-                runningApp.activate(options: NSApplicationActivationOptions.activateIgnoringOtherApps)
+                runningApp.activate(options: NSApplication.ActivationOptions.activateIgnoringOtherApps)
             }
         }
     }
 
-    func checkRunningApplication() {
+    @objc func checkRunningApplication() {
 
         let newProddableAppListMenu = NSMenu()
 
-        for runningApp in NSWorkspace.shared().runningApplications {
-            if runningApp.activationPolicy == NSApplicationActivationPolicy.regular {
+        for runningApp in NSWorkspace.shared.runningApplications {
+            if runningApp.activationPolicy == NSApplication.ActivationPolicy.regular {
 
                 let appListItem = NSMenuItem(title: runningApp.localizedName!, action: #selector(StatusMenuController.activateExtremeMode(_:)), keyEquivalent: "")
                 appListItem.image = runningApp.icon!
